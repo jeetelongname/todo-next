@@ -5,8 +5,8 @@ export type Todo = {
 
   title: string;
   description?: string;
-  done: Boolean;
-  tags: Tag[];
+  done: boolean;
+  tags: Array<Tag>;
   deadline: Date;
   created: Date;
   completed: Date;
@@ -15,6 +15,6 @@ export type Todo = {
 export type InsertTodo = {
   title: string;
   description?: string;
-  tags: Tag[];
+  tags: Array<Tag>;
   deadline: Date;
 };
