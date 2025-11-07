@@ -6,7 +6,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "eslint"
+        "lint": "eslint",
+        "db:migrate": "tsx .config/migrator.ts"
     },
     "dependencies": {
         "@emotion/cache": "^11.14.0",
@@ -14,7 +15,9 @@
         "@emotion/styled": "^11.14.1",
         "@mui/material": "^7.3.4",
         "@mui/material-nextjs": "^7.3.3",
+        "kysely": "^0.28.8",
         "next": "16.0.1",
+        "pg": "^8.16.3",
         "react": "19.2.0",
         "react-dom": "19.2.0",
         "uuid": "^13.0.0"
@@ -22,13 +25,16 @@
     "devDependencies": {
         "@tailwindcss/postcss": "^4",
         "@types/node": "^20",
+        "@types/pg": "^8.15.6",
         "@types/react": "^19",
         "@types/react-dom": "^19",
         "eslint": "^9",
         "eslint-config-next": "16.0.1",
+        "kysely-ctl": "^0.19.0",
         "prettier": "^3.6.2",
         "prettier-plugin-tailwindcss": "^0.7.1",
         "tailwindcss": "^4",
+        "tsx": "^4.20.6",
         "typescript": "^5"
     },
     "prettier": {
