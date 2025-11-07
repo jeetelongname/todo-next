@@ -1,0 +1,10 @@
+:host = http://localhost:3000
+
+POST :host/api/todo
+Content-Type: application/json
+{
+    "title": "some title",
+    "description": "some desc",
+    "tags": ["tag1", "tag2", "tag3"],
+    "deadline": "2025-11-7"
+}
