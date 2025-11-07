@@ -1,7 +1,7 @@
 import { Todo } from "@/models/todo";
 import { Tag, InsertTag } from "@/models/tag";
 
-export interface TagRepo {
+export default interface TagRepo {
   // Tag CRUD
   tag_create(tag: InsertTag): Promise<Tag>;
   tag_read(id: string): Promise<Tag | null>;
