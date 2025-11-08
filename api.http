@@ -1,4 +1,5 @@
 :host = http://localhost:3000
+:test_id = 8aef43a2-ff9a-4a80-bf29-5783e45da336
 
 # basic example
 POST :host/api/todo
@@ -11,8 +12,25 @@ Content-Type: application/json
 }
 
 # get a todo from its ID
-GET :host/api/todo?id=8aef43a2-ff9a-4a80-bf29-5783e45da336
+GET :host/api/todo?id=:test_id
 
 # bad id example
 GET :host/api/todo
 
+# some update examples
+PATCH :host/api/todo?id=:test_id
+Content-Type: application/json
+{
+    "title": "even even newer title",
+    "done": true
+}
+
+# in this example the tag list changes, we fully replace the tag list in each query
+# under the hood we diff the tag list with 
+PATCH :host/api/todo?id=:test_id
+Content-Type: application/json
+{
+    "title": "even even newer title",
+    "done": false,
+    "tags": ["tag1", "tag2", "tag7"]
+}

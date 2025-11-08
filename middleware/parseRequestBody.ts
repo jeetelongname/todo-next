@@ -5,6 +5,8 @@ export default async function parseRequestBody<T>(
 ): Promise<T> {
   const bodyText = await req.text();
 
+  // console.log(bodyText);
+
   if (!bodyText) {
     throw new Error("Request body cannot be empty");
   }
