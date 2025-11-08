@@ -1,10 +1,18 @@
 :host = http://localhost:3000
 
+# basic example
 POST :host/api/todo
 Content-Type: application/json
 {
     "title": "some title",
     "description": "some desc",
-    "tags": ["tag1", "tag2", "tag3"],
+    "tags": ["tag1", "tag2", "tag3", "tag4"],
     "deadline": "2025-11-7"
 }
+
+# get a todo from its ID
+GET :host/api/todo?id=8aef43a2-ff9a-4a80-bf29-5783e45da336
+
+# bad id example
+GET :host/api/todo
+
