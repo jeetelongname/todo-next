@@ -8,6 +8,7 @@ import {
 
 export interface Database {
   todo: TodoTable;
+  todo_tag: TodoTagTable;
   user: UserTable;
   tag: TagTable;
   session: SessionTable;
@@ -19,9 +20,9 @@ type TodoTable = {
   title: string;
   description: string | null;
   done: boolean;
-  deadline: ColumnType<Date>;
-  created: ColumnType<Date, never>;
-  completed: ColumnType<Date>;
+  deadline: ColumnType<Date, Date, Date>;
+  created: ColumnType<Date, Date, never>;
+  completed: ColumnType<Date, Date, Date> | null;
 };
 
 export type TodoRow = Selectable<TodoTable>;
@@ -61,3 +62,12 @@ type SessionTable = {
 export type SessionRow = Selectable<SessionTable>;
 export type InsertSessionRow = Insertable<SessionTable>;
 export type SessionUpdate = Updateable<SessionTable>;
+
+type TodoTagTable = {
+  todo_id: string;
+  tag_id: string;
+};
+
+export type TodoTagRow = Selectable<TodoTagTable>;
+export type InsertTodoTagRow = Insertable<TodoTagTable>;
+export type TodoTagUpdate = Updateable<TodoTagTable>;

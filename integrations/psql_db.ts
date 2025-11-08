@@ -5,7 +5,7 @@ import { Database } from "@/models/database";
 let db: Kysely<Database>;
 
 // singleton pattern
-export async function getDb() {
+export async function getDB() {
   // Create new pool and Kysely instance
 
   if (!db) {

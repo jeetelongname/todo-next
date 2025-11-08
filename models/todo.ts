@@ -1,20 +1,21 @@
-import { Tag } from "@/models/tag";
+import { Tag, InsertTag } from "@/models/tag";
 
 export type Todo = {
+  tags: Array<Tag>;
+
   id: string;
 
   title: string;
   description?: string;
   done: boolean;
-  tags: Array<Tag>;
   deadline: Date;
   created: Date;
-  completed: Date;
+  completed?: Date;
 };
 
 export type InsertTodo = {
   title: string;
-  description?: string;
-  tags: Array<Tag>;
+  description: string | null;
+  tags: Array<InsertTag | string>;
   deadline: Date;
 };
