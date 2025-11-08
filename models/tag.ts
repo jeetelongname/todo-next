@@ -3,4 +3,4 @@ export type Tag = {
   name: string;
 };
 
-export type InsertTag = { name: string };
+export type InsertTag = { name: string } | string;

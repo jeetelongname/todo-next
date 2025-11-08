@@ -1,6 +1,7 @@
 import type { InsertTodo, Todo } from "@/models/todo";
-import type { InsertTagRow, InsertTodoRow, TodoRow } from "@/models/database";
+import type { InsertTodoRow, TodoRow } from "@/models/database";
 import type { Tag } from "@/models/tag";
+import TagRepo from "@/interfaces/TagRepo/factory";
 
 import { getDB } from "@/integrations/psql_db";
 
@@ -23,23 +24,7 @@ export default async function todo_create(todo: InsertTodo): Promise<Todo> {
     .returningAll()
     .executeTakeFirstOrThrow();
 
-  const tags: Array<Tag> = await db
-    .with("res", (db) =>
-      db
-        .insertInto("tag")
-        .values(todo.tags.map((tagName) => ({ name: tagName }) as InsertTagRow))
-        .onConflict((oc) => oc.column("name").doNothing())
-        .returningAll(),
-    )
-    .selectFrom("res")
-    .selectAll()
-    .unionAll(
-      db
-        .selectFrom("tag")
-        .selectAll()
-        .where("name", "in", todo.tags as Array<string>),
-    )
-    .execute();
+  const tags: Array<Tag> = await TagRepo.tag_create_multiple(todo.tags);
 
   await db
     .insertInto("todo_tag")
