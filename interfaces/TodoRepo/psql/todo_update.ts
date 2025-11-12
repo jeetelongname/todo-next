@@ -3,6 +3,7 @@ import { Todo } from "@/models/todo";
 import { TodoRow } from "@/models/database";
 import { Tag } from "@/models/tag";
 import TagRepo from "@/interfaces/TagRepo/factory";
+import TodoRepo from "@/interfaces/TodoRepo/factory";
 
 export default async function todo_update(
   id: string,
@@ -13,7 +14,9 @@ export default async function todo_update(
 
   const { tags: updated_tags, ...updateTodoRow } = updates;
 
-  console.log(updated_tags);
+  if (!(await TodoRepo.todo_does_exist(id))) {
+    throw new Error("ID does not exist");
+  }
 
   const result: TodoRow = await db
     .updateTable("todo")
@@ -24,8 +27,6 @@ export default async function todo_update(
 
   let tags: Array<Tag>;
   const original_tags: Array<Tag> = await TagRepo.todo_tag_get_tags(id);
-
-  console.log(original_tags);
 
   if (updated_tags) {
     // NOTE: this is absolutely not the most efficient way to do this.
