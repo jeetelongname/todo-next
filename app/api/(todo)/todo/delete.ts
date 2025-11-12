@@ -1,20 +1,20 @@
 import TodoService from "@/service";
 import { NextRequest, NextResponse } from "next/server";
 
-export default async function GET(req: NextRequest) {
+export default async function DELETE(req: NextRequest) {
   try {
     const id: string | null = req.nextUrl.searchParams.get("id");
-    let todo;
+    let result: Boolean;
 
     if (id) {
-      todo = await TodoService.read_todo(id);
+      result = await TodoService.delete_todo(id);
     } else {
       throw new Error("no id provided");
     }
 
     return NextResponse.json(
       {
-        ...todo,
+        delete: result,
       },
       {
         status: 200,

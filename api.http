@@ -1,5 +1,6 @@
 :host = http://localhost:3000
 :test_id = 8aef43a2-ff9a-4a80-bf29-5783e45da336
+:delete_id = 9ba5c741-1a2c-4644-99f0-dd661a349dd8
 
 # basic example
 POST :host/api/todo
@@ -16,6 +17,9 @@ GET :host/api/todo?id=:test_id
 
 # bad id example
 GET :host/api/todo
+
+# Non existant ID
+GET :host/api/todo?id=:delete_id
 
 # some update examples
 PATCH :host/api/todo?id=:test_id
@@ -34,3 +38,6 @@ Content-Type: application/json
     "done": false,
     "tags": ["tag1", "tag2", "tag7"]
 }
+
+#delete example
+DELETE :host/api/todo?id=:delete_id
