@@ -1,6 +1,6 @@
 export type Tag = {
-  id: number;
+  id: string;
   name: string;
 };
 
-export type InsertTag = { name: string };
+export type InsertTag = { name: string } | string;

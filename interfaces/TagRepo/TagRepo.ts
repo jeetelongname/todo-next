@@ -4,9 +4,10 @@ import { Tag, InsertTag } from "@/models/tag";
 export default interface TagRepo {
   // Tag CRUD
   tag_create(tag: InsertTag): Promise<Tag>;
+  tag_create_multiple(tags: Array<InsertTag>): Promise<Array<Tag>>;
   tag_read(id: string): Promise<Tag | null>;
   // no update as tags store only their name
-  tag_delete(id: string): Promise<boolean>;
+  tag_delete(id: string): Promise<Boolean>;
 
   // FIXME: These will need to be constrained to a user
   // get all todos with a tag.
@@ -15,4 +16,6 @@ export default interface TagRepo {
   todo_tag_get_todos_multiple_tags(
     tag_ids: Array<string>,
   ): Promise<Array<Todo> | null>;
+
+  todo_tag_get_tags(todo_id: string): Promise<Array<Tag>>;
 }

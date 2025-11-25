@@ -1,0 +1,43 @@
+:host = http://localhost:3000
+:test_id = 8aef43a2-ff9a-4a80-bf29-5783e45da336
+:delete_id = 9ba5c741-1a2c-4644-99f0-dd661a349dd8
+
+# basic example
+POST :host/api/todo
+Content-Type: application/json
+{
+    "title": "some title",
+    "description": "some desc",
+    "tags": ["tag1", "tag2", "tag3", "tag4"],
+    "deadline": "2025-11-7"
+}
+
+# get a todo from its ID
+GET :host/api/todo?id=:test_id
+
+# bad id example
+GET :host/api/todo
+
+# Non existant ID
+GET :host/api/todo?id=:delete_id
+
+# some update examples
+PATCH :host/api/todo?id=:test_id
+Content-Type: application/json
+{
+    "title": "even even newer title",
+    "done": true
+}
+
+# in this example the tag list changes, we fully replace the tag list in each query
+# under the hood we diff the tag list with 
+PATCH :host/api/todo?id=:test_id
+Content-Type: application/json
+{
+    "title": "even even newer title",
+    "done": false,
+    "tags": ["tag1", "tag2", "tag7"]
+}
+
+#delete example
+DELETE :host/api/todo?id=:delete_id
