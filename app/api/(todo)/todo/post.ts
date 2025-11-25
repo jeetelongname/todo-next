@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { InsertTodo } from "@/models/todo";
 import TodoService from "@/service";
 import parseRequestBody from "@/middleware/parseRequestBody";
+import AppError from "@/errors/AppError";
 
 export default async function POST(req: NextRequest) {
   try {
-    // await getAuth(req);
     const body = await parseRequestBody<InsertTodo>(req);
 
     const newTodoData: InsertTodo = {
@@ -30,16 +30,14 @@ export default async function POST(req: NextRequest) {
         // },
       },
     );
-  } catch (error: unknown) {
+  } catch (error: AppError | unknown) {
     return NextResponse.json(
-      { error: (error as Error).toString() },
       {
-        status: 500,
-        // headers: {
-        //   "x-request-id": reqId,
-        // },
+        error: (error as AppError).message,
+      },
+      {
+        status: (error as AppError).httpStatusCode,
       },
     );
-    // return handleErrorResponse(error, req, reqId);
   }
 }

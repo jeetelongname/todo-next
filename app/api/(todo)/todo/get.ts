@@ -1,5 +1,6 @@
 import TodoService from "@/service";
 import { NextRequest, NextResponse } from "next/server";
+import AppError from "@/errors/AppError";
 
 export default async function GET(req: NextRequest) {
   try {
@@ -9,7 +10,11 @@ export default async function GET(req: NextRequest) {
     if (id) {
       todo = await TodoService.read_todo(id);
     } else {
-      throw new Error("no id provided");
+      throw new AppError({
+        message: "no id provided",
+        httpStatusCode: 400,
+        exposeToUser: true,
+      });
     }
 
     return NextResponse.json(
@@ -20,14 +25,13 @@ export default async function GET(req: NextRequest) {
         status: 200,
       },
     );
-  } catch (error: unknown) {
+  } catch (error: AppError | unknown) {
     return NextResponse.json(
       {
-        error: (error as Error).toString(),
+        error: (error as AppError).message,
       },
       {
-        // FIXME: should change depending on error above
-        status: 500,
+        status: (error as AppError).httpStatusCode,
       },
     );
   }
