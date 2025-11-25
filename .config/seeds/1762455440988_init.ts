@@ -16,6 +16,3 @@ export async function seed(db: Kysely<Database>): Promise<void> {
     .addColumn("completed", "date")
     .execute();
 }
-
-// const db = await getDb();
-// seed(db);
