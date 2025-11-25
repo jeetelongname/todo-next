@@ -4,7 +4,6 @@ export default interface TodoRepo {
   // Todo CRUD
   todo_create(todo: InsertTodo): Promise<Todo>;
   todo_read(id: string): Promise<Todo>;
-  todo_does_exist(id: string): Promise<boolean>;
   todo_update(id: string, updates: Partial<Todo>): Promise<Todo>;
-  todo_delete(id: string): Promise<boolean>;
+  todo_delete(id: string): Promise<Boolean>;
 }

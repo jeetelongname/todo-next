@@ -7,7 +7,7 @@ export default interface TagRepo {
   tag_create_multiple(tags: Array<InsertTag>): Promise<Array<Tag>>;
   tag_read(id: string): Promise<Tag | null>;
   // no update as tags store only their name
-  tag_delete(id: string): Promise<boolean>;
+  tag_delete(id: string): Promise<Boolean>;
 
   // FIXME: These will need to be constrained to a user
   // get all todos with a tag.

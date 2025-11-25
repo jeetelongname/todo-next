@@ -6,7 +6,6 @@ import TagRepo from "@/interfaces/TagRepo/factory";
 import { getDB } from "@/integrations/psql_db";
 
 export default async function todo_create(todo: InsertTodo): Promise<Todo> {
-  // throw new Error("psql backend unimplemented");
   const db = await getDB();
 
   const insertable: InsertTodoRow = {
@@ -18,6 +17,7 @@ export default async function todo_create(todo: InsertTodo): Promise<Todo> {
     completed: null,
   };
 
+  // TODO: Catch on Database Errors
   const result: TodoRow = await db
     .insertInto("todo")
     .values(insertable)
@@ -26,6 +26,7 @@ export default async function todo_create(todo: InsertTodo): Promise<Todo> {
 
   const tags: Array<Tag> = await TagRepo.tag_create_multiple(todo.tags);
 
+  // create relation
   await db
     .insertInto("todo_tag")
     .values(
@@ -36,6 +37,5 @@ export default async function todo_create(todo: InsertTodo): Promise<Todo> {
     )
     .execute();
 
-  // create relation
   return { ...result, tags: tags } as Todo;
 }

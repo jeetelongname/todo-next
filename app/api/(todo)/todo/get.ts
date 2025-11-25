@@ -11,7 +11,7 @@ export default async function GET(req: NextRequest) {
       todo = await TodoService.read_todo(id);
     } else {
       throw new AppError({
-        message: "no id provided",
+        message: "No ID provided",
         httpStatusCode: 400,
         exposeToUser: true,
       });

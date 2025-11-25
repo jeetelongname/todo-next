@@ -3,7 +3,7 @@ import { Todo } from "@/models/todo";
 import { TodoRow } from "@/models/database";
 import { Tag } from "@/models/tag";
 import TagRepo from "@/interfaces/TagRepo/factory";
-import TodoRepo from "@/interfaces/TodoRepo/factory";
+import AppError from "@/errors/AppError";
 
 export default async function todo_update(
   id: string,
@@ -14,16 +14,20 @@ export default async function todo_update(
 
   const { tags: updated_tags, ...updateTodoRow } = updates;
 
-  if (!(await TodoRepo.todo_does_exist(id))) {
-    throw new Error("ID does not exist");
-  }
-
-  const result: TodoRow = await db
+  const result: TodoRow | undefined = await db
     .updateTable("todo")
     .set({ ...updateTodoRow })
     .where("id", "=", id)
     .returningAll()
-    .executeTakeFirstOrThrow();
+    .executeTakeFirst();
+
+  if (!result) {
+    throw new AppError({
+      message: "Todo Not Found",
+      httpStatusCode: 404,
+      exposeToUser: true,
+    });
+  }
 
   let tags: Array<Tag>;
   const original_tags: Array<Tag> = await TagRepo.todo_tag_get_tags(id);
