@@ -71,3 +71,16 @@ type TodoTagTable = {
 export type TodoTagRow = Selectable<TodoTagTable>;
 export type InsertTodoTagRow = Insertable<TodoTagTable>;
 export type TodoTagUpdate = Updateable<TodoTagTable>;
+
+type TokenTable = {
+  id: Generated<string>;
+  user_id: string; // foreign key to UserTable.id
+  created_at: ColumnType<Date, Date, never>;
+  expires_at: ColumnType<Date, Date, Date>;
+  type: 'access' | 'verify-email' | 'reset-password' | 'api-key';
+  revoked_at: ColumnType<Date, Date, Date> | null;
+};
+
+export type TokenRow = Selectable<TokenTable>;
+export type InsertTokenRow = Insertable<TokenTable>;
+export type TokenUpdate = Updateable<TokenTable>;
