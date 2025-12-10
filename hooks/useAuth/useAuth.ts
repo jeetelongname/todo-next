@@ -12,6 +12,7 @@ export function useAuth() {
       loginEmailPasswordFn(email, password),
     onSuccess: (accessToken) => {
       queryClient.setQueryData(['auth', 'accessToken'], accessToken)
+      getAccessToken.refetch()
     }
   });
 
@@ -20,7 +21,7 @@ export function useAuth() {
       registerEmailPasswordFn(data),
   });
 
-  useQuery({
+  const getAccessToken = useQuery({
     queryKey: ['auth', 'accessToken'],
     queryFn: async () => {
       const newToken = await refreshAccessTokenFn()
@@ -32,6 +33,7 @@ export function useAuth() {
   })
 
   return { 
+    getAccessToken,
     loginEmailPassword,
     registerEmailPassword,
   };

@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, TextField, Typography, Stack } from "@mui/material";
-import { useAuth } from "@/hooks/useAuth/useAuth";
 import { Token } from "@/models/token";
+import { useAuthContext } from "@/providers/AuthProvider";
+import router from "next/router";
 
 export default function AuthPage() {
-  const { loginEmailPassword, registerEmailPassword } = useAuth();
+  const { loginEmailPassword, registerEmailPassword, getAccessToken } = useAuthContext();
 
   // --- Login state ---
   const [loginEmail, setLoginEmail] = useState("");
@@ -17,6 +18,12 @@ export default function AuthPage() {
   const [registerPassword, setRegisterPassword] = useState("");
 
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (getAccessToken.data) {
+      router.push("/todos");
+    }
+  }, [getAccessToken.data]);
 
   // --- Handlers ---
   const handleLogin = () => {
