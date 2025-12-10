@@ -4,30 +4,9 @@ import requestLogger from "@/middleware/requestLogger";
 import parseRequestBody from "@/middleware/bodyParser";
 import InvalidRegistrationMethod from "@/errors/InvalidRegistrationMethod";
 import AuthService from "@/service/auth";
+import { RegisterRequestBody } from "@/models/register";
 
-interface MagicLinkRegisterBody {
-  method: 'magic_link';
-  email: string;
-}
-
-interface UsernamePasswordRegisterBody {
-  method: 'username_pass';
-  username: string;
-  password: string;
-  email: string;
-}
-
-interface GoogleOAuthRegisterBody {
-  method: 'google_oauth';
-  idToken: string;
-}
-
-export type RegisterRequestBody =
-  | MagicLinkRegisterBody
-  | UsernamePasswordRegisterBody
-  | GoogleOAuthRegisterBody;
-
-export default async function GET(req: NextRequest) {
+export default async function POST(req: NextRequest) {
   const reqId = requestLogger(req)
 
   try {
@@ -42,10 +21,6 @@ export default async function GET(req: NextRequest) {
     const method = body.method
 
     switch (method) {
-      case 'magic_link':
-        await AuthService.register_magic_link(body.email);
-        break;
-
       case 'username_pass':
         await AuthService.register_username_password(
           body.email,

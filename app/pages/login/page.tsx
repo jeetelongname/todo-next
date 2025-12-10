@@ -1,90 +1,58 @@
 "use client";
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  Divider,
-  Stack,
-} from "@mui/material";
+import { Box, Button, TextField, Typography, Stack } from "@mui/material";
+import { useAuth } from "@/hooks/useAuth/useAuth";
+import { Token } from "@/models/token";
 
 export default function AuthPage() {
+  const { loginEmailPassword, registerEmailPassword } = useAuth();
+
   // --- Login state ---
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
   // --- Register state ---
   const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
   const [registerUsername, setRegisterUsername] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
 
-  // --- Error / Loading ---
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   // --- Handlers ---
-  const handleLogin = async () => {
-    setLoading(true);
-    setError("");
-    try {
-      // TODO: Call your login API
-      console.log("Logging in", { loginEmail, loginPassword });
-      // Example: await loginWithEmailPassword(loginEmail, loginPassword);
-    } catch (err) {
-      console.error(err)
-      setError("Login failed");
-    } finally {
-      setLoading(false);
-    }
+  const handleLogin = () => {
+    setError(null);
+    loginEmailPassword.mutate(
+      { email: loginEmail, password: loginPassword },
+      {
+        onSuccess: (token: Token) => {
+          console.log("Logged in, access token:", token);
+        },
+        onError: (err: unknown) => {
+          console.error(err);
+          setError((err as Error).message || "Login failed");
+        },
+      }
+    );
   };
 
-  const handleLoginWithGoogle = async () => {
-    setLoading(true);
-    try {
-      // TODO: Trigger Google OAuth flow
-      console.log("Login with Google");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleLoginWithMagicLink = async () => {
-    setLoading(true);
-    try {
-      // TODO: Send magic link to email
-      console.log("Login with magic link", loginEmail);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleRegister = async () => {
-    setLoading(true);
-    try {
-      // TODO: Register user with email/password/username
-      console.log("Registering", { registerEmail, registerPassword, registerUsername });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleRegisterWithGoogle = async () => {
-    setLoading(true);
-    try {
-      console.log("Register with Google");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleRegisterWithMagicLink = async () => {
-    setLoading(true);
-    try {
-      console.log("Register with magic link", registerEmail);
-    } finally {
-      setLoading(false);
-    }
+  const handleRegister = () => {
+    setError(null);
+    registerEmailPassword.mutate(
+      { 
+        username: registerUsername, 
+        password: registerPassword,
+        email: registerEmail,
+      },
+      {
+        onSuccess: () => {
+          console.log("Registered Successfully");
+        },
+        onError: (err: unknown) => {
+          console.error(err);
+          setError((err as Error).message || "Register failed");
+        },
+      }
+    );
   };
 
   return (
@@ -103,12 +71,8 @@ export default function AuthPage() {
       <Typography variant="h5" mb={2}>
         Login
       </Typography>
-      {error && (
-        <Typography color="error" mb={2}>
-          {error}
-        </Typography>
-      )}
-      <Stack spacing={2} mb={2}>
+      {error && <Typography color="error" mb={2}>{error}</Typography>}
+      <Stack spacing={2} mb={4}>
         <TextField
           label="Email"
           type="email"
@@ -123,28 +87,15 @@ export default function AuthPage() {
           value={loginPassword}
           onChange={(e) => setLoginPassword(e.target.value)}
         />
-        <Button variant="contained" fullWidth onClick={handleLogin} disabled={loading}>
-          Login
-        </Button>
         <Button
-          variant="outlined"
+          variant="contained"
           fullWidth
-          onClick={handleLoginWithGoogle}
-          disabled={loading}
+          onClick={handleLogin}
+          disabled={loginEmailPassword.isPending}
         >
-          Login with Google
-        </Button>
-        <Button
-          variant="outlined"
-          fullWidth
-          onClick={handleLoginWithMagicLink}
-          disabled={loading || !loginEmail}
-        >
-          Login with Magic Link
+          {loginEmailPassword.isPending ? "Logging in..." : "Login"}
         </Button>
       </Stack>
-
-      <Divider sx={{ my: 4 }}>or Register</Divider>
 
       {/* --- REGISTER SECTION --- */}
       <Typography variant="h5" mb={2}>
@@ -171,24 +122,13 @@ export default function AuthPage() {
           value={registerPassword}
           onChange={(e) => setRegisterPassword(e.target.value)}
         />
-        <Button variant="contained" fullWidth onClick={handleRegister} disabled={loading}>
-          Register
-        </Button>
         <Button
-          variant="outlined"
+          variant="contained"
           fullWidth
-          onClick={handleRegisterWithGoogle}
-          disabled={loading}
+          onClick={handleRegister}
+          disabled={registerEmailPassword.isPending}
         >
-          Register with Google
-        </Button>
-        <Button
-          variant="outlined"
-          fullWidth
-          onClick={handleRegisterWithMagicLink}
-          disabled={loading || !registerEmail}
-        >
-          Register with Magic Link
+          {registerEmailPassword.isPending ? "Registering..." : "Register"}
         </Button>
       </Stack>
     </Box>
