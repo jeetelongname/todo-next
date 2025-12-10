@@ -23,15 +23,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        run: npm install -g pnpm
-
       - name: Use Node.js LTS
         uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
           cache: "pnpm"
           cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install deps
         run: pnpm ci
