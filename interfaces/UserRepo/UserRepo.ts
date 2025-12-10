@@ -1,3 +1,4 @@
+import { Query } from "@/models/query";
 import { User, InsertUser } from "@/models/user";
 // import { Todo } from "@/models/todo";
 // import { Tag } from "@/models/tag";
@@ -5,6 +6,7 @@ import { User, InsertUser } from "@/models/user";
 export default interface UserRepo {
   // User CRUD
   user_create(user: InsertUser): Promise<User>;
+  user_query(query: Array<Query<User>>): Promise<Array<User>>;
   // user_read(id: string): Promise<User | null>;
   // user_update(id: string, updates: Partial<User>): Promise<User>;
   // user_delete(id: string): Promise<boolean>;
