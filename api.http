@@ -21,6 +21,9 @@ GET :host/api/todo
 # Non existant ID
 GET :host/api/todo?id=:delete_id
 
+# All todos
+GET :host/api/todos
+
 # some update examples
 PATCH :host/api/todo?id=:test_id
 Content-Type: application/json
