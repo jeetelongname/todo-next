@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { v4 as uuidv4 } from 'uuid'
 
-export function requestLogger(request: NextRequest): string {
+export default function requestLogger(request: NextRequest): string {
     let requestId = request.headers.get('x-request-id');
 
     if (!requestId) {

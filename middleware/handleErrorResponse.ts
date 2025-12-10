@@ -12,7 +12,7 @@ function httpFormatCause(cause: unknown): string | null {
     }
 }
 
-export function handleErrorResponse(
+export default function handleErrorResponse(
     error: unknown, 
     reqId: string,
 ): NextResponse {

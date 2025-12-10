@@ -19,7 +19,6 @@ export async function getDB() {
           host: "localhost",
           port: 5432,
           database: "todo",
-
           max: 5,
         }),
       }),

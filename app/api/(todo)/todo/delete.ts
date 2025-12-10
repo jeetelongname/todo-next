@@ -1,8 +1,12 @@
 import AppError from "@/errors/AppError";
+import handleErrorResponse from "@/middleware/handleErrorResponse";
+import requestLogger from "@/middleware/requestLogger";
 import TodoService from "@/service";
 import { NextRequest, NextResponse } from "next/server";
 
 export default async function DELETE(req: NextRequest) {
+  const reqId = requestLogger(req)
+
   try {
     const id: string | null = req.nextUrl.searchParams.get("id");
     let result: boolean;
@@ -23,16 +27,12 @@ export default async function DELETE(req: NextRequest) {
       },
       {
         status: 200,
+        headers: {
+          "x-request-id": reqId,
+        },
       },
     );
   } catch (error: AppError | unknown) {
-    return NextResponse.json(
-      {
-        error: (error as AppError).message,
-      },
-      {
-        status: (error as AppError).httpStatusCode ?? 500,
-      },
-    );
+    return handleErrorResponse(error, reqId)
   }
 }

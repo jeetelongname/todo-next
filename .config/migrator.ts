@@ -2,10 +2,10 @@ import * as path from "path";
 import { promises as fs } from "fs";
 import { Migrator, FileMigrationProvider } from "kysely";
 
-import { getDb } from "../integrations/psql_db";
+import { getDB } from "../integrations/psql_db";
 
 async function migrateToLatest() {
-  const db = await getDb();
+  const db = await getDB();
 
   const migrator = new Migrator({
     db,

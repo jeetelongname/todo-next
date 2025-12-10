@@ -1,5 +1,6 @@
 import {
   DummyDriver,
+  Kysely,
   PostgresAdapter,
   PostgresIntrospector,
   PostgresQueryCompiler,
@@ -15,7 +16,7 @@ export default defineConfig({
     createDriver() {
       return new DummyDriver();
     },
-    createIntrospector(db) {
+    createIntrospector(db: Kysely<any>) {
       return new PostgresIntrospector(db);
     },
     createQueryCompiler() {
