@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: "lts/*"
           cache: "npm"
-          cache-dependency-path: package-lock.json
+          cache-dependency-path: pnpm-lock.json
 
       - name: Install deps
         run: npm ci
