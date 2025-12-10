@@ -31,7 +31,7 @@ export default async function GET(req: NextRequest) {
         error: (error as AppError).message,
       },
       {
-        status: (error as AppError).httpStatusCode,
+        status: (error as AppError).httpStatusCode ?? 500,
       },
     );
   }

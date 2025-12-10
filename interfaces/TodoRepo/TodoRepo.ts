@@ -6,5 +6,5 @@ export default interface TodoRepo {
   todo_read(id: string): Promise<Todo>;
   todo_read_all(): Promise<Array<Todo>>;
   todo_update(id: string, updates: Partial<Todo>): Promise<Todo>;
-  todo_delete(id: string): Promise<Boolean>;
+  todo_delete(id: string): Promise<boolean>;
 }

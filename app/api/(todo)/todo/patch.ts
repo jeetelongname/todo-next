@@ -35,7 +35,7 @@ export default async function PATCH(req: NextRequest) {
         error: (error as AppError).message,
       },
       {
-        status: (error as AppError).httpStatusCode,
+        status: (error as AppError).httpStatusCode ?? 500,
       },
     );
   }

@@ -1,15 +1,13 @@
 import { getDB } from "@/integrations/psql_db";
 
-export default async function todo_does_exist(id: string): Promise<Boolean> {
+export default async function todo_does_exist(id: string): Promise<boolean> {
   const db = await getDB();
 
-  const result: { exists: Boolean } = await db
-    .selectNoFrom((eb) =>
-      eb.exists((db) => db.selectFrom("todo").where("id", "=", id).limit(1)),
-    )
-    .executeTakeFirstOrThrow();
+  const result = await db
+    .selectFrom("todo")
+    .selectAll()
+    .where("id", "=", id)
+    .executeTakeFirst();
 
-  console.log(result);
-
-  return result.exists;
+  return !!result // !! coerce to boolean
 }

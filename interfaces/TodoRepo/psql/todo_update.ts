@@ -5,18 +5,24 @@ import { Tag } from "@/models/tag";
 import TagRepo from "@/interfaces/TagRepo/factory";
 import AppError from "@/errors/AppError";
 
+type TodoUpdates = Omit<Partial<Todo>, "created" | "id" | "tags">;
+
 export default async function todo_update(
   id: string,
   updates: Partial<Todo>,
 ): Promise<Todo> {
-  // throw new Error("unimplemented");
   const db = await getDB();
 
   const { tags: updated_tags, ...updateTodoRow } = updates;
 
+  delete updateTodoRow.id
+  delete updateTodoRow.created
+
+  const validatedUpdates = updateTodoRow as TodoUpdates
+
   const result: TodoRow | undefined = await db
     .updateTable("todo")
-    .set({ ...updateTodoRow })
+    .set({ ...validatedUpdates })
     .where("id", "=", id)
     .returningAll()
     .executeTakeFirst();

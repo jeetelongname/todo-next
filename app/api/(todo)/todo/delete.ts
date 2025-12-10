@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export default async function DELETE(req: NextRequest) {
   try {
     const id: string | null = req.nextUrl.searchParams.get("id");
-    let result: Boolean;
+    let result: boolean;
 
     if (id) {
       result = await TodoService.delete_todo(id);
@@ -31,7 +31,7 @@ export default async function DELETE(req: NextRequest) {
         error: (error as AppError).message,
       },
       {
-        status: (error as AppError).httpStatusCode,
+        status: (error as AppError).httpStatusCode ?? 500,
       },
     );
   }

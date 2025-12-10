@@ -1,4 +1,4 @@
-import AppError from "@/errors/AppError";
+import parseServerError from "@/utils/parseServerError";
 import { QueryClient } from "@tanstack/react-query";
 
 export default async function fetchTodoByID(
@@ -13,10 +13,7 @@ export default async function fetchTodoByID(
   const response = await fetch(`/api/todo?id=${id}`, headers);
 
   if (!response.ok) {
-    // FIXME: better errors
-    const body = await response.json();
-    console.error(body);
-    throw new Error(body);
+    throw parseServerError(response)
   }
 
   queryClient.invalidateQueries({
