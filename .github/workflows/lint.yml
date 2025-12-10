@@ -30,8 +30,11 @@ jobs:
           cache: "pnpm"
           cache-dependency-path: pnpm-lock.json
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install deps
-        run: npm ci
+        run: pnpm ci
 
       - name: Run linting
-        run: npm run lint
+        run: pnpm run lint

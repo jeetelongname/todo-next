@@ -23,6 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Use Node.js LTS
         uses: actions/setup-node@v4
         with:
@@ -31,7 +34,7 @@ jobs:
           cache-dependency-path: pnpm-lock.json
 
       - name: Install deps
-        run: npm ci
+        run: pnpm ci
 
       - name: Run build
-        run: npm run build
+        run: pnpm run build
