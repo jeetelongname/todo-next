@@ -1,6 +1,6 @@
 import { Tag } from "@/models/tag";
 
-async function tag_read(id: string): Promise<Tag> {
+async function tag_read(/* id: string */): Promise<Tag> {
   throw new Error("tag read unimplemented");
 }
 

@@ -1,4 +1,4 @@
-async function tag_delete(id: string): Promise<boolean> {
+async function tag_delete(/* id: string */): Promise<boolean> {
   throw new Error("tag delete unimplemented");
 }
 

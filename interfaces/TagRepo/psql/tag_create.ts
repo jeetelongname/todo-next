@@ -2,8 +2,8 @@ import { InsertTag, Tag } from "@/models/tag";
 import { InsertTagRow } from "@/models/database";
 import { getDB } from "@/integrations/psql_db";
 
-export async function tag_create(tagI: InsertTag): Promise<Tag> {
-  const db = await getDB();
+export async function tag_create(/* tagI: InsertTag */): Promise<Tag> {
+  // const db = await getDB();
 
   throw new Error("tag create undefined");
 }
