@@ -1,11 +1,10 @@
-name: Controller Build
+name: Todo Build
 
 on:
   pull_request:
-    branches: [develop, main]
+    branches: [develop, main, senpai]
     paths:
-      - "controller/**"
-      - ".github/workflows/controller-build.yml"
+      - ".github/workflows/build.yml"
   workflow_dispatch:
 
 permissions:
@@ -18,7 +17,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: controller
+        working-directory: ./
 
     steps:
       - name: Checkout
