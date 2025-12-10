@@ -1,8 +1,9 @@
 import AppError from "@/errors/AppError";
 import TodoService from "@/service";
-import { NextRequest, NextResponse } from "next/server";
+import { /* NextRequest ,*/ NextResponse } from "next/server";
 
-export default async function GET(req: NextRequest) {
+// req will be required when query parameters provided
+export default async function GET(/* req: NextRequest */) {
   try {
     const todos = await TodoService.read_todos();
 
@@ -15,7 +16,7 @@ export default async function GET(req: NextRequest) {
         error: (error as AppError).message,
       },
       {
-        status: (error as AppError).httpStatusCode,
+        status: (error as AppError).httpStatusCode ?? 500,
       },
     );
   }
