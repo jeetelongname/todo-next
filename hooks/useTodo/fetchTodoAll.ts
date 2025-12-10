@@ -1,3 +1,5 @@
+import parseServerError from "@/utils/parseServerError";
+
 export default async function fetchTodoAll() {
   const headers: HeadersInit = {
     "Content-Type": "application/json",
@@ -7,10 +9,7 @@ export default async function fetchTodoAll() {
   const response = await fetch(`/api/todos`, headers);
 
   if (!response.ok) {
-    // FIXME: better errors
-    const body = await response.json();
-    console.error(body);
-    throw new Error(body);
+    throw parseServerError(response)
   }
 
   const body = await response.json();

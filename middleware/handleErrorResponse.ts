@@ -23,9 +23,8 @@ export function handleErrorResponse(
         (error as AppError).exposeToUser
     ) {
         const appError = error as AppError
-        const responseBody: Record<string, unknown> = {
-            name: appError.name,
-            message: appError.message,
+        const responseBody: AppError = {
+            ...appError
         };
 
         if (appError.cause) {

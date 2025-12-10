@@ -1,10 +1,12 @@
 import InvalidRequestBodyError from "@/errors/InvalidRequestBody";
 import { NextRequest } from "next/server";
 
+// Record<string, never> behaves as you would expect type {} to
+// https://www.totaltypescript.com/the-empty-object-type-in-typescript
 export async function parseRequestBody<T>(
   req: NextRequest,
   allowEmpty: boolean = false,
-): Promise<T | {}> {
+): Promise<T | Record<string, never>> {
   const bodyText = await req.text();
 
   if (!bodyText) {
