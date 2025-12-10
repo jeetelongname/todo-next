@@ -12,6 +12,7 @@ export interface Database {
   user: UserTable;
   tag: TagTable;
   session: SessionTable;
+  token: TokenTable;
 }
 
 type TodoTable = {
@@ -77,7 +78,13 @@ type TokenTable = {
   user_id: string; // foreign key to UserTable.id
   created_at: ColumnType<Date, Date, never>;
   expires_at: ColumnType<Date, Date, Date>;
-  type: 'access' | 'verify-email' | 'reset-password' | 'api-key';
+  type: 
+    'access' 
+    | 'api-key' 
+    | 'magic-link' 
+    | 'refresh'
+    | 'reset-password' 
+    | 'verify-email';
   revoked_at: ColumnType<Date, Date, Date> | null;
 };
 

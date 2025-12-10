@@ -1,8 +1,8 @@
 export type Token = {
   id: string;
-  userId: string;
-  createdAt: Date;
-  expiresAt: Date;
+  user_id: string;
+  created_at: Date;
+  expires_at: Date;
   type: 
     'access' 
     | 'api-key' 
@@ -10,5 +10,7 @@ export type Token = {
     | 'refresh'
     | 'reset-password' 
     | 'verify-email';
-  revokedAt?: Date;
+  revoked_at?: Date;
 };
+
+export type InsertToken = Omit<Token, "id">
