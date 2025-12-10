@@ -12,7 +12,7 @@ permissions:
   pull-requests: read
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-22.04
 
     defaults:
@@ -27,11 +27,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
-          cache: "npm"
+          cache: "pnpm"
           cache-dependency-path: pnpm-lock.json
 
       - name: Install deps
         run: npm ci
 
-      - name: Run tests
+      - name: Run build
         run: npm run build
