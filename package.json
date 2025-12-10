@@ -7,7 +7,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "eslint",
-        "db:migrate": "tsx .config/migrator.ts"
+        "db:migrate": "tsx .config/migrator.ts",
+        "db:migrate-down": "tsx .config/down.ts"
     },
     "dependencies": {
         "@emotion/cache": "^11.14.0",
@@ -16,6 +17,7 @@
         "@mui/material": "^7.3.4",
         "@mui/material-nextjs": "^7.3.6",
         "@tanstack/react-query": "^5.90.11",
+        "bcrypt": "^6.0.0",
         "kysely": "^0.28.8",
         "next": "16.0.1",
         "pg": "^8.16.3",
@@ -25,6 +27,7 @@
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4",
+        "@types/bcrypt": "^6.0.0",
         "@types/node": "^20",
         "@types/pg": "^8.15.6",
         "@types/react": "^19",

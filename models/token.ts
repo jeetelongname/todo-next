@@ -5,9 +5,10 @@ export type Token = {
   expiresAt: Date;
   type: 
     'access' 
-    | 'verify-email' 
-    | 'reset-password' 
     | 'api-key' 
-    | 'refresh';
+    | 'magic-link' 
+    | 'refresh'
+    | 'reset-password' 
+    | 'verify-email';
   revokedAt?: Date;
 };

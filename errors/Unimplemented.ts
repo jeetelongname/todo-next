@@ -1,11 +1,11 @@
 import AppErrorInterface from "@/interfaces/AppErrorInterface";
 import AppError from "./AppError";
 
-export default class InvalidRequestBodyError extends AppError {
+export default class Unimplemented extends AppError {
     constructor({
-        name = 'InvalidBodyError',
-        message,
-        httpStatusCode = null,
+        name = 'Unimplemented',
+        message = 'Route Unimplemented',
+        httpStatusCode = 501,
         exposeToUser = true,
         cause,
     }: AppErrorInterface) {

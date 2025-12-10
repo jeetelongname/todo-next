@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 
 // Record<string, never> behaves as you would expect type {} to
 // https://www.totaltypescript.com/the-empty-object-type-in-typescript
-export async function parseRequestBody<T>(
+export default async function parseRequestBody<T>(
   req: NextRequest,
   allowEmpty: boolean = false,
 ): Promise<T | Record<string, never>> {

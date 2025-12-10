@@ -33,7 +33,7 @@ type UserTable = {
   id: Generated<string>;
 
   email: string;
-  pass_hash: string;
+  pass_hash?: string;
   name: string;
 };
 
