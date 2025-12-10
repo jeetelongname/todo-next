@@ -1,7 +1,7 @@
 import AppError from "@/errors/AppError";
 import handleErrorResponse from "@/middleware/handleErrorResponse";
 import requestLogger from "@/middleware/requestLogger";
-import TodoService from "@/service";
+import TodoService from "@/service/todo";
 import { NextRequest, NextResponse } from "next/server";
 
 export default async function DELETE(req: NextRequest) {

@@ -1,7 +1,7 @@
 import parseRequestBody from "@/middleware/parseRequestBody";
 import { NextRequest, NextResponse } from "next/server";
 import { Todo } from "@/models/todo";
-import TodoService from "@/service";
+import TodoService from "@/service/todo";
 import AppError from "@/errors/AppError";
 import requestLogger from "@/middleware/requestLogger";
 import handleErrorResponse from "@/middleware/handleErrorResponse";

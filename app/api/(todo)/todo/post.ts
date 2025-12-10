@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { InsertTodo } from "@/models/todo";
-import TodoService from "@/service";
+import TodoService from "@/service/todo";
 import parseRequestBody from "@/middleware/parseRequestBody";
 import handleErrorResponse from "@/middleware/handleErrorResponse";
 import requestLogger from "@/middleware/requestLogger";

@@ -1,6 +1,6 @@
 import handleErrorResponse from "@/middleware/handleErrorResponse";
 import requestLogger from "@/middleware/requestLogger";
-import TodoService from "@/service";
+import TodoService from "@/service/todo";
 import { NextRequest, NextResponse } from "next/server";
 
 // req will be required when query parameters provided
