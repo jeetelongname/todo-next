@@ -1,0 +1,38 @@
+name: Controller Tests
+
+on:
+  pull_request:
+    branches: [develop, main]
+    paths:
+      - "controller/**"
+      - ".github/workflows/controller-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+
+    defaults:
+      run:
+        working-directory: controller
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "npm"
+          cache-dependency-path: package-lock.json
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
