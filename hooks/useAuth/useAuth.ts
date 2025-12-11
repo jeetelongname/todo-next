@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import loginEmailPasswordFn from "./loginEmailPassword";
-import registerEmailPasswordFn from "./registerEmailPassword";
 import { UsernamePasswordRegisterBody } from "@/models/register";
+import loginEmailPasswordFn from "./loginEmailPassword";
+import loginGoogleFn from "./loginGoogle";
 import refreshAccessTokenFn from "./refreshAccessToken";
+import registerEmailPasswordFn from "./registerEmailPassword";
 
 export function useAuth() {
   const queryClient = useQueryClient();
@@ -15,6 +16,15 @@ export function useAuth() {
       getAccessToken.refetch()
     }
   });
+
+  const loginGoogle = useMutation({
+    mutationFn: ({ googleIdToken }: { googleIdToken: string }) =>
+      loginGoogleFn(googleIdToken),
+    onSuccess: (accessToken) => {
+      queryClient.setQueryData(['auth', 'accessToken'], accessToken)
+      getAccessToken.refetch()
+    }
+  })
 
   const registerEmailPassword = useMutation({
     mutationFn: (data: Omit<UsernamePasswordRegisterBody, "method">) =>
@@ -35,6 +45,7 @@ export function useAuth() {
   return { 
     getAccessToken,
     loginEmailPassword,
+    loginGoogle,
     registerEmailPassword,
   };
 }
