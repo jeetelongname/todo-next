@@ -10,10 +10,11 @@ export default class AppError extends Error {
     message,
     httpStatusCode = null,
     exposeToUser = false,
+    name = 'AppError',
     cause,
   }: AppErrorInterface) {
     super(message);
-    this.name = name ?? 'AppError';
+    this.name = name;
     this.httpStatusCode = httpStatusCode;
     this.exposeToUser = exposeToUser;
     this.cause = cause;

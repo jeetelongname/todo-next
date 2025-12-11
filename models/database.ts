@@ -12,6 +12,7 @@ export interface Database {
   user: UserTable;
   tag: TagTable;
   session: SessionTable;
+  token: TokenTable;
 }
 
 type TodoTable = {
@@ -32,8 +33,9 @@ export type TodoUpdate = Updateable<TodoTable>;
 type UserTable = {
   id: Generated<string>;
 
+  google_id: string;
   email: string;
-  pass_hash: string;
+  pass_hash?: string;
   name: string;
 };
 
@@ -71,3 +73,22 @@ type TodoTagTable = {
 export type TodoTagRow = Selectable<TodoTagTable>;
 export type InsertTodoTagRow = Insertable<TodoTagTable>;
 export type TodoTagUpdate = Updateable<TodoTagTable>;
+
+type TokenTable = {
+  id: Generated<string>;
+  user_id: string; // foreign key to UserTable.id
+  created_at: ColumnType<Date, Date, never>;
+  expires_at: ColumnType<Date, Date, Date>;
+  type: 
+    'access' 
+    | 'api-key' 
+    | 'magic-link' 
+    | 'refresh'
+    | 'reset-password' 
+    | 'verify-email';
+  revoked_at: ColumnType<Date, Date, Date> | null;
+};
+
+export type TokenRow = Selectable<TokenTable>;
+export type InsertTokenRow = Insertable<TokenTable>;
+export type TokenUpdate = Updateable<TokenTable>;

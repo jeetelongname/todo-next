@@ -44,3 +44,14 @@ Content-Type: application/json
 
 #delete example
 DELETE :host/api/todo?id=:delete_id
+
+### Register user with username and password
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "method": "username_pass",
+  "username": "kane",
+  "email": "kane@example.com",
+  "password": "secret123"
+}

@@ -1,11 +1,11 @@
 import AppErrorInterface from "@/interfaces/AppErrorInterface";
 import AppError from "./AppError";
 
-export default class InvalidRequestBodyError extends AppError {
+export default class UnsupportedQueryOperand extends AppError {
     constructor({
-        name = 'InvalidBodyError',
-        message,
-        httpStatusCode = null,
+        name = 'UnsupportedQueryOperand',
+        message = 'UnsupportedQueryOperand',
+        httpStatusCode = 400,
         exposeToUser = true,
         cause,
     }: AppErrorInterface) {

@@ -1,11 +1,11 @@
 import AppErrorInterface from "@/interfaces/AppErrorInterface";
 import AppError from "./AppError";
 
-export default class InvalidRequestBodyError extends AppError {
+export default class ResourceNotFound extends AppError {
     constructor({
-        name = 'InvalidBodyError',
-        message,
-        httpStatusCode = null,
+        name = 'ResourceNotFound',
+        message = 'ResourceNotFound',
+        httpStatusCode = 404,
         exposeToUser = true,
         cause,
     }: AppErrorInterface) {

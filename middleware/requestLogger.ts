@@ -11,6 +11,7 @@ export default function requestLogger(request: NextRequest): string {
 
     console.log(`
         Incoming Request:
+        ${new Date().toISOString()}
         ${request.method}
         ${request.nextUrl.pathname}
         Request ID: ${requestId}
