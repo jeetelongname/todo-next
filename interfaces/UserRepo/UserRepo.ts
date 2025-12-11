@@ -8,7 +8,7 @@ export default interface UserRepo {
   user_create(user: InsertUser): Promise<User>;
   user_query(query: Array<Query<User>>): Promise<Array<User>>;
   // user_read(id: string): Promise<User | null>;
-  // user_update(id: string, updates: Partial<User>): Promise<User>;
+  user_update(id: string, updates: Partial<User>): Promise<User>;
   // user_delete(id: string): Promise<boolean>;
 
   // get all todos associated with a user

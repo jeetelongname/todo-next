@@ -60,9 +60,8 @@ export default async function login_google_oauth(
         // Create a new user
         user = await UserRepo.user_create({
           email,
-          username: name,
+          name: name,
           google_id: googleId,
-          created_at: new Date(),
         });
       }
     } else {

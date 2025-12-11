@@ -33,6 +33,7 @@ export type TodoUpdate = Updateable<TodoTable>;
 type UserTable = {
   id: Generated<string>;
 
+  google_id: string;
   email: string;
   pass_hash?: string;
   name: string;

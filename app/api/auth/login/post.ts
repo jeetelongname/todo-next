@@ -23,10 +23,6 @@ export default async function POST(req: NextRequest) {
     let refreshToken: string;
     let accessToken: string;
 
-    console.log('********************************')
-    console.log(body)
-    console.log('********************************')
-
     switch (method) {
       case "username_pass":
         ({ 
